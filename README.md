@@ -1,4 +1,4 @@
-# Omni Arena
+# Omni Arena - WIP
 HTML5 arena game built with Omni.js.
 
 
