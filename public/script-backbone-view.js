@@ -57,22 +57,18 @@ Omni.ready(function() {
             if (OmniArena.player != null) {
                 if (this.keysDown[87]) { // W
                     OmniArena.player.set("y", OmniArena.player.get("y") - Math.round(deltaTime * 1.0));
-                    console.log("moving up");
                 }
 
                 if (this.keysDown[83]) { // S
                     OmniArena.player.set("y", OmniArena.player.get("y") + Math.round(deltaTime * 1.0));
-                    console.log("moving down");
                 }
 
                 if (this.keysDown[65]) { // A
                     OmniArena.player.set("x", OmniArena.player.get("x") - Math.round(deltaTime * 1.0));
-                    console.log("moving left");
                 }
 
                 if (this.keysDown[68]) { // D
                     OmniArena.player.set("x", OmniArena.player.get("x") + Math.round(deltaTime * 1.0));
-                    console.log("moving right");
                 }
             }
 

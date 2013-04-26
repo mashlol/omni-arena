@@ -8,7 +8,7 @@ module.exports = Omni.Model.extend({
         name: "Player"
     },
     readPermission: function(connection, property) {
-        if (this.get("online") === true ) {
+        if (this.get("online") === true) {
             return true;
         }
         return false;
