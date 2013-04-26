@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="http://backbonejs.org/backbone-min.js"></script>
+    <script src="/omni.js"></script>
+
+    <!--<script src="./script-simple.js"></script> -->
+    <script src="./script-backbone-view.js"></script>
+
+    <link rel="stylesheet" href="./style.css"></link>
+</head>
+<body>
+    <div class="header"><h1>Omni Arena</h1></div>
+    <div class="login-container">
+        <form id="login" onsubmit="return false;"><input placeholder="Enter a username..." type="text" /></form>
+    </div>
+    <div class="arena-container">
+        <canvas id="arena" width="800" height="600"></div>
+    </div>
+</body>
+</html>
