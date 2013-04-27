@@ -2,6 +2,6 @@
     "name": "omni-arena",
     "version": "0.0.1",
     "dependencies": {
-        "omni": ""
+        "omni": ">= 0.0.8"
       }
 }
