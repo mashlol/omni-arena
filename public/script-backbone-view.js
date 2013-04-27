@@ -21,7 +21,6 @@ Omni.ready(function() {
                         OmniArena.player = Omni.Collections.players.findWhere({id: data.id});
                         _this.$el.remove();
                         $("#arena").removeClass("fade-out");
-                        new HealthBarView({el: $(".health-container")});
                     }
                 });
                 $input.val('');
@@ -163,17 +162,6 @@ Omni.ready(function() {
                     setTimeout(callback, 17);
                 }
             }
-        }
-    });
-
-    var HealthBarView = Backbone.View.extend({
-        initialize: function() {
-            this.listenTo(OmniArena.player, "change:health", this.render);
-            this.render();
-        },
-        render: function() {
-            this.$el.find(".health-percent").html(Math.round(OmniArena.player.get('health') / 10 * 100));
-            this.$el.find(".health-bar").css("width", OmniArena.player.get('health') / 10 * 300);
         }
     });
 
