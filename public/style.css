@@ -16,7 +16,7 @@ body {
 }
 
 .fade-out {
-    opacity: .6;
+    opacity: .3;
 }
 
 canvas {
@@ -53,4 +53,24 @@ img {
     right: 0;
     border: 0;
     z-index: 1;
+}
+
+button {
+    height: 40px;
+    width: 130px;
+    margin-top: 10px;
+    color: #fff;
+    background: #2cc;
+    border: 0;
+    border-radius: 3px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4ee;
+}
+
+button:active {
+    background: #0aa;
 }

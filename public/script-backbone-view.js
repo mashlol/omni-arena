@@ -5,7 +5,8 @@ Omni.ready(function() {
 
     var LoginView = Backbone.View.extend({
         events: {
-            "submit #login": "login"
+            "submit #login": "login",
+            "submit #respawn": "respawn"
         },
         login: function(event) {
             var _this = this;
@@ -19,12 +20,33 @@ Omni.ready(function() {
                     }
                     if (data.success != undefined && data.id != undefined) {
                         OmniArena.player = Omni.Collections.players.findWhere({id: data.id});
-                        _this.$el.remove();
+                        OmniArena.player.on("change:alive", _this.checkIfDead.bind(_this));
+                        _this.$el.hide();
                         $("#arena").removeClass("fade-out");
                     }
                 });
                 $input.val('');
             }
+
+            event.stopPropagation();
+            event.preventDefault();
+            return false;
+        },
+        checkIfDead: function(model, options) {
+            if (model.get('alive') === false) {
+                this.$el.show();
+                this.$el.html($("<form>").attr({id: "respawn", onsubmit: "return false;"}).html("You have died.").append($("<button>").html("Respawn")));
+                $("#arena").addClass("fade-out");
+            }
+        },
+        respawn: function(event) {
+            var _this = this;
+            Omni.trigger("respawn", {}, function(data) {
+                OmniArena.player = Omni.Collections.players.findWhere({id: data.id});
+                OmniArena.player.on("change:alive", _this.checkIfDead.bind(_this));
+                _this.$el.html('');
+                $("#arena").removeClass("fade-out");
+            });
 
             event.stopPropagation();
             event.preventDefault();
@@ -103,6 +125,7 @@ Omni.ready(function() {
             Omni.Collections.spells.each(this.renderSpell, this);
         },
         renderPlayer: function(player) {
+            if (!player.get('alive')) { return; }
             var x = player.get('x');
             var y = player.get('y');
 

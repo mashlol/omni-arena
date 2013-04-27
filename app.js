@@ -6,7 +6,8 @@ var events = {
     login: require("./events/login"),
     spell: require("./events/spell"),
     disconnect: require("./events/disconnect"),
-    connect: require("./events/connect")
+    connect: require("./events/connect"),
+    respawn: require("./events/respawn")
 }
 
 var players = new Players();

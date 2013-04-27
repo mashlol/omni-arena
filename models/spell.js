@@ -29,7 +29,7 @@ module.exports = Omni.Model.extend({
                         player.set('health', player.get('health') - 1);
                         if (player.get('health') <= 0) {
                             player.set('alive', false);
-                            collections.players.remove(player);
+                            // collections.players.remove(player);
                         }
                         if (callback != undefined) {
                             callback(_this);
