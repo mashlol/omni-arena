@@ -5,7 +5,8 @@ var Spells = require("./collections/spells");
 var events = {
     login: require("./events/login"),
     spell: require("./events/spell"),
-    disconnect: require("./events/disconnect")
+    disconnect: require("./events/disconnect"),
+    connect: require("./events/connect")
 }
 
 var players = new Players();

@@ -12,6 +12,15 @@ module.exports = Omni.Collection.extend({
         });
         return highest + 1;
     },
+    findRoom: function() {
+        var room = 1;
+        while (true) {
+            if (this.where({room: room, alive: true}).length < 2) {
+                return room;
+            }
+            room++;
+        }
+    },
     createPermission: function(connection) {
         return true;
     }

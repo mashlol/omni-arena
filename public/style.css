@@ -8,3 +8,41 @@ body {
     color: #eee;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.fade-out {
+    opacity: .6;
+}
+
+canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -300px 0 0 -400px;
+    background: #eee;
+}
+
+.login-container {
+    width: 200px;
+    height: 40px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -20px 0 0 -100px;
+    z-index: 2;
+}
+
+.login-container input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    padding: 5px;
+}
