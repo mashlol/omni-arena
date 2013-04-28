@@ -15,7 +15,7 @@ module.exports = Omni.Collection.extend({
     findRoom: function() {
         var room = 1;
         while (true) {
-            if (this.where({room: room, alive: true}).length < 2) {
+            if (this.where({room: room, alive: true}).length < 3) {
                 return room;
             }
             room++;
