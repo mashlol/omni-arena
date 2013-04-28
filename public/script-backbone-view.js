@@ -55,16 +55,15 @@ Omni.ready(function() {
     });
 
     var ArenaView = Backbone.View.extend({
-        events: {
-            "click canvas": "spellCast"
-        },
         initialize: function() {
             this.setRequestAnimFrame();
 
             this.context = this.$el.find("canvas")[0].getContext("2d");
 
+            // Bind to window so the events don't have to occur while the canvas is focused
             $(window).on("keydown", this.onKeyDown.bind(this));
             $(window).on("keyup", this.onKeyUp.bind(this));
+            $(window).on("click", this.spellCast.bind(this));
 
             this.keysDown = {};
             this.lastRenderTime = 0;
