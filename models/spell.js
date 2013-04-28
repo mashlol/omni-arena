@@ -27,8 +27,10 @@ module.exports = Omni.Model.extend({
                     var player = playersInRoom[p];
                     if (_this.get('player') != player && _this.approximatelyAt(player.get('x'), player.get('y'))) {
                         player.set('health', player.get('health') - 1);
-                        if (player.get('health') <= 0) {
+                        if (player.get('health') <= 0 && player.get("alive")) {
                             player.set('alive', false);
+                            _this.get('player').set('kills', _this.get('player').get('kills') + 1);
+                            player.set('deaths', player.get('deaths') + 1);
                             // collections.players.remove(player);
                         }
                         if (callback != undefined) {

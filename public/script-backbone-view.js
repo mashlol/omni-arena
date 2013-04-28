@@ -1,12 +1,32 @@
 Omni.ready(function() {
     var OmniArena = {
-        player: null
+        player: null,
+        events: {},
+        on: function(event, callback) {
+            if (this.events[event] == null) {
+                this.events[event] = [];
+            }
+            this.events[event].push(callback);
+        },
+        trigger: function(event) {
+            if (this.events[event] != null) {
+                for (var x in this.events[event]) {
+                    this.events[event][x]();
+                }
+            }
+        }
     };
 
     var LoginView = Backbone.View.extend({
         events: {
             "submit #login": "login",
             "submit #respawn": "respawn"
+        },
+        initialize: function() {
+            var _this = this;
+            OmniArena.on("update:player", function() {
+                OmniArena.player.on("change:alive", _this.checkIfDead.bind(_this));
+            });
         },
         login: function(event) {
             var _this = this;
@@ -20,7 +40,8 @@ Omni.ready(function() {
                     }
                     if (data.success != undefined && data.id != undefined) {
                         OmniArena.player = Omni.Collections.players.findWhere({id: data.id});
-                        OmniArena.player.on("change:alive", _this.checkIfDead.bind(_this));
+                        OmniArena.trigger("update:player");
+                        OmniArena.trigger("login");
                         _this.$el.hide();
                         $("#arena").removeClass("fade-out");
                     }
@@ -43,7 +64,7 @@ Omni.ready(function() {
             var _this = this;
             Omni.trigger("respawn", {}, function(data) {
                 OmniArena.player = Omni.Collections.players.findWhere({id: data.id});
-                OmniArena.player.on("change:alive", _this.checkIfDead.bind(_this));
+                OmniArena.trigger("update:player");
                 _this.$el.html('');
                 $("#arena").removeClass("fade-out");
             });
@@ -71,6 +92,27 @@ Omni.ready(function() {
             this.startTime = Date.now();
 
             this.gameLoop();
+
+            var _this = this;
+            OmniArena.on("login", function() {
+                console.log(Omni.Collections.playerCount.at(0));
+                Omni.Collections.playerCount.at(0).on("change:count", _this.updateOnline.bind(_this));
+                _this.updateOnline(Omni.Collections.playerCount.at(0));
+            });
+            this.updateOnline(Omni.Collections.playerCount.at(0));
+
+            OmniArena.on("update:player", function() {
+                OmniArena.player.on("change:kills", _this.updateKills.bind(_this));
+                OmniArena.player.on("change:deaths", _this.updateKills.bind(_this));
+            });
+        },
+        updateKills: function(model) {
+            console.log("hur");
+            this.$el.find(".kills-deaths").html("Kills: " + model.get("kills") + " - Deaths: " + model.get("deaths"));
+        },
+        updateOnline: function(model) {
+            console.log("helu");
+            this.$el.find(".online-players").html("Players Online: " + model.get("count"));
         },
         elapsedTime: function() {
             return Date.now() - this.startTime;

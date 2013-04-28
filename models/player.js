@@ -8,7 +8,9 @@ module.exports = Omni.Model.extend({
         name: "Player",
         color: "#fff",
         room: 0,
-        alive: true
+        alive: true,
+        kills: 0,
+        deaths: 0
     },
     readPermission: function(connection, property) {
         if (connection.room != null && connection.room == this.get('room')) {

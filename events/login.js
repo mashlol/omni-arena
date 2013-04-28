@@ -32,6 +32,11 @@ module.exports = {
             collections.players.add(newPlayer);
             connection.player = newPlayer;
             connection.recheckAllPermissions();
+
+            // Increment player count
+            var playerCount = collections.playerCount.at(0);
+            playerCount.set('count', playerCount.get('count') + 1);
+
             return {success: "Successfully logged in.", id: newID};
         }
     }
