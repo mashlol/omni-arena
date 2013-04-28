@@ -95,7 +95,6 @@ Omni.ready(function() {
 
             var _this = this;
             OmniArena.on("login", function() {
-                console.log(Omni.Collections.playerCount.at(0));
                 Omni.Collections.playerCount.at(0).on("change:count", _this.updateOnline.bind(_this));
                 _this.updateOnline(Omni.Collections.playerCount.at(0));
             });
@@ -107,11 +106,9 @@ Omni.ready(function() {
             });
         },
         updateKills: function(model) {
-            console.log("hur");
             this.$el.find(".kills-deaths").html("Kills: " + model.get("kills") + " - Deaths: " + model.get("deaths"));
         },
         updateOnline: function(model) {
-            console.log("helu");
             this.$el.find(".online-players").html("Players Online: " + model.get("count"));
         },
         elapsedTime: function() {
