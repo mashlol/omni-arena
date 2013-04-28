@@ -14,6 +14,9 @@ module.exports = {
         if (collections.players.where({room: connection.room, alive: true}).length < 2) {
             return {error: "Can't cast spells if room not full."};
         }
+        if (connection.lastCast && Date.now() - connection.lastCast <= 100) {
+            return {error: "Spell on cooldown"};
+        }
         var newID = collections.spells.nextID();
         var newSpell = new Spell({
             id: newID,
@@ -26,5 +29,6 @@ module.exports = {
         newSpell.projectTowards(data.x, data.y, 0.6, collections, function(spell) {
             collections.spells.remove(spell);
         });
+        connection.lastCast = Date.now();
     }
 }
