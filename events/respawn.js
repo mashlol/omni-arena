@@ -20,6 +20,12 @@ module.exports = {
         });
 
         connection.recheckAllPermissions();
+        for (var x in connection.connections) {
+            var con = connection.connections[x];
+            if (con.player && con.player.get("room") == room) {
+                con.recheckAllPermissions();
+            }
+        }
 
         return {success: "Respawned", id: connection.player.id};
     }

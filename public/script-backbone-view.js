@@ -27,6 +27,10 @@ Omni.ready(function() {
             OmniArena.on("update:player", function() {
                 OmniArena.player.on("change:alive", _this.checkIfDead.bind(_this));
             });
+            Omni.on("recheckPermissions", function() {
+                OmniArena.player = Omni.Collections.players.findWhere({id: OmniArena.player.id});
+                OmniArena.trigger("update:player");
+            })
         },
         login: function(event) {
             var _this = this;
@@ -63,8 +67,6 @@ Omni.ready(function() {
         respawn: function(event) {
             var _this = this;
             Omni.trigger("respawn", {}, function(data) {
-                OmniArena.player = Omni.Collections.players.findWhere({id: data.id});
-                OmniArena.trigger("update:player");
                 _this.$el.html('');
                 $("#arena").removeClass("fade-out");
             });
