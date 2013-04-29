@@ -28,8 +28,10 @@ Omni.ready(function() {
                 OmniArena.player.on("change:alive", _this.checkIfDead.bind(_this));
             });
             Omni.on("recheckPermissions", function() {
-                OmniArena.player = Omni.Collections.players.findWhere({id: OmniArena.player.id});
-                OmniArena.trigger("update:player");
+                if (OmniArena.player != null) {
+                    OmniArena.player = Omni.Collections.players.findWhere({id: OmniArena.player.id});
+                    OmniArena.trigger("update:player");
+                }
             })
         },
         login: function(event) {
